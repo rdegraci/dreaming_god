@@ -104,12 +104,12 @@ module DreamingGod
           when 'place type'
             column_a = 'place_type'
           else
-            column_a = (column_a == 'all' ? '*' : "'#{column_a}'")
+            column_a = (column_a == 'all' ? '*' : "#{column_a}")
           end
           table_name = @intent.slots['table']['value']  #people
           column_b = @intent.slots['columnb']['value'] #name
           compare_value = @intent.slots['comparevalue']['value'] #bob
-          sql_string = "SELECT #{column_a.capitalize} FROM db_#{table_name} WHERE #{column_b} = '#{compare_value}'"
+          sql_string = "SELECT #{column_a} FROM db_#{table_name} WHERE #{column_b} = '#{compare_value}'"
           result = "Db#{(table_name.capitalize.singularize)}".constantize.find_by_sql(sql_string)
           names = ""
           result.each do |r|
@@ -133,7 +133,7 @@ module DreamingGod
           when 'place type'
             column_a = 'place_type'
           else
-            column_a = (column_a == 'all' ? '*' : "'#{column_a}'")
+            column_a = (column_a == 'all' ? '*' : "#{column_a}")
           end
           
           sql_string = "UPDATE db_#{table_name} SET #{column_a} = '#{value_a}' WHERE #{column_b} = '#{compare_value}'"
@@ -154,7 +154,7 @@ module DreamingGod
           when 'place type'
             column = 'place_type'
           else
-            column = (column == 'all' ? '*' : "'#{column}'")
+            column = (column == 'all' ? '*' : "#{column}")
           end
           
           sql_string = "DELETE FROM db_#{table_name} where #{column} = '#{compare_value}'"
