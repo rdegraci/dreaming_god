@@ -24,7 +24,7 @@ module DreamingGod
       when 'LaunchRequest'
         # Prepare system
         card = response_card 'Dreaming God'
-        ssml_response(speak('Greetings User'), card, false)
+        ssml_response(speak('Greetings user. Tell me a fact for example, Cat is an animal.'), card, false)
       when 'IntentRequest'
         @intent = Alexagram::Intent.new(@request)
         intent_name = @intent.name.underscore
@@ -39,12 +39,12 @@ module DreamingGod
             names = ""
             result = "Db#{(table_name.capitalize.singularize)}".constantize.all.limit(3)
             result.each do |r|
-              names << "#{result.name},"
+              names << "#{r.label},"
             end
             names = "#{table_name} is empty" if names.length == 0
             res = "Here is the list of #{table_name}, #{names}"
             card = response_card res
-            ssml_response(speak(res), card, false)
+            ssml_response(speak(res), card, true)
           end
         when 'create_person'
           result = ""
@@ -61,7 +61,7 @@ module DreamingGod
             result = "Ok. #{name} is a #{person}"
           end
           card = response_card result
-          ssml_response(speak("#{result}"), card, false)
+          ssml_response(speak("#{result}"), card, true)
         when 'create_place'
           result = ""
           table_name = intent_name.split('_').last.pluralize
@@ -77,7 +77,7 @@ module DreamingGod
             result = "Ok. #{name} is a #{place}"
           end
           card = response_card result
-          ssml_response(speak("#{result}"), card, false)
+          ssml_response(speak("#{result}"), card, true)
         when 'create_thing'
           result = ""
           table_name = intent_name.split('_').last.pluralize
@@ -93,7 +93,7 @@ module DreamingGod
             result = "Ok. #{name} is a #{thing}"
           end
           card = response_card result
-          ssml_response(speak("#{result}"), card, false)
+          ssml_response(speak("#{result}"), card, true)
         when 'select_row'
           column_a = @intent.slots['columna']['value'] #all
           case column_a
@@ -117,7 +117,7 @@ module DreamingGod
           end
           names = "#{table_name} table is empty" if names.length == 0
           card = response_card 'Dreaming God'
-          ssml_response(speak("I have found the following, #{names}"), card, false)
+          ssml_response(speak("I have found the following, #{names}"), card, true)
         when 'update_row'        
           table_name = @intent.slots['table']['value']  #people
           column_a = @intent.slots['columna']['value'] #label
@@ -140,7 +140,7 @@ module DreamingGod
           result = "Db#{(table_name.capitalize.singularize)}".constantize.find_by_sql(sql_string)
           res = "I have updated the database where #{column_b} is equal to #{compare_value}"
           card = response_card res
-          ssml_response(speak(res), card, false)
+          ssml_response(speak(res), card, true)
         when 'destroy_row'
           table_name = @intent.slots['table']['value']  #people
           column = @intent.slots['column']['value'] #label
@@ -161,7 +161,7 @@ module DreamingGod
           "Db#{(table_name.capitalize.singularize)}".constantize.find_by_sql(sql_string)
           res = "I have destroyed rows from the database where #{column} is equal to #{compare_value}"
           card = response_card res
-          ssml_response(speak(res), card, false)
+          ssml_response(speak(res), card, true)
         else
         end
 
