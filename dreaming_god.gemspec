@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["rdegraci@gmail.com"]
 
   spec.summary       = %q{An Alexa voice skill bridge to a database }
-  spec.description   = %q{Manipulate a database using voice commands, eventually to be used to create syllogisms}
+  spec.description   = %q{Manipulate a database using Amazon Alexa skill voice commands, eventually to be used to create syllogisms}
   spec.homepage      = "https://www.github.com/rdegraci/dreaming_god"
   spec.license       = "MIT"
 
