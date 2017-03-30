@@ -4,10 +4,10 @@ module DreamingGod
   
     def initialize session
       @session = session
-      @db_session = DbSession.where(:userId => session.userId).first
+      @db_session = "Db#{self.class.to_s.split(':').last}".constantize.where(:userId => session.userId).first
       
       if !@db_session 
-        dbs = DbSession.new
+        dbs = "Db#{self.class.to_s.split(':').last}".constantize.new
         dbs.sessionId = session.sessionId
         dbs.userId = session.userId
         dbs.save!
@@ -24,7 +24,7 @@ module DreamingGod
       when 'LaunchRequest'
         # Prepare system
         card = response_card 'Dreaming God'
-        ssml_response(speak('Greetings. My database has'), card, false)
+        ssml_response(speak('Greetings User'), card, false)
       when 'IntentRequest'
         @intent = Alexagram::Intent.new(@request)
         intent_name = @intent.name.underscore
