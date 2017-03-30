@@ -113,7 +113,7 @@ module DreamingGod
           result = "Db#{(table_name.capitalize.singularize)}".constantize.find_by_sql(sql_string)
           names = ""
           result.each do |r|
-            names << "#{r.send(column_b)}, "
+            names << "#{r.send(column_a)}, "
           end
           names = "#{table_name} table is empty" if names.length == 0
           card = response_card 'Dreaming God'
@@ -138,7 +138,7 @@ module DreamingGod
           
           sql_string = "UPDATE db_#{table_name} SET #{column_a} = '#{value_a}' WHERE #{column_b} = '#{compare_value}'"
           result = "Db#{(table_name.capitalize.singularize)}".constantize.find_by_sql(sql_string)
-          res = "I have updated the database where #{column_b} is equal to #{compare_value}"
+          res = "I have updated the database where #{column_b} is equal to #{compare_value} with #{column_a} set to #{value_a}"
           card = response_card res
           ssml_response(speak(res), card, true)
         when 'destroy_row'
